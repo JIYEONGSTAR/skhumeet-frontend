@@ -32,9 +32,9 @@ const NavBar = () => {
     <Nav>
       <NavWrapper>
         <TopWrapper>
-          <LogoWrapper>
-            <Logo onClick={() => router.push("/")}>
-              <LogoImg src="/Logo.svg" />
+          <LogoWrapper onClick={() => router.push("/")}>
+            <Logo>
+              <LogoImg src="/Logo.svg" alt="logo" />
             </Logo>
           </LogoWrapper>
           <NavUser>
@@ -118,7 +118,7 @@ const LogoWrapper = styled.div`
   cursor: pointer;
 `;
 
-const Logo = styled.a`
+const Logo = styled.div`
   font-weight: bold;
   font-size: 1.5rem;
   text-decoration: none;

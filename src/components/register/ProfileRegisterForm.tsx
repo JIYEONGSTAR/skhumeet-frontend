@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { useAuth } from "@/hooks/user";
 import Btn from "@/components/utils/Btn";
 import customAlert from "../modal/CustomModalAlert";
+import Image from "next/image";
 
 const ProfileRegisterForm = ({
   id,
@@ -48,7 +49,8 @@ const ProfileRegisterForm = ({
   return (
     <Container>
       <Wrapper>
-        <img style={{ width: "15vw" }} src="/Logo.svg" alt="로고" />
+        {/* todo: 이미지최적회 */}
+        <Image src="/Logo.svg" alt="logo" />
         <div>
           <h3 style={{ marginBottom: "10px" }}>
             SKHUMEET에 오신 것을 환영합니다!

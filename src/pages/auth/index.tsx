@@ -124,7 +124,7 @@ const Auth = () => {
       <Wrapper>
         <Container>
           <Header.Container>
-            <LogoImg src="/Logo.svg" alt="" />
+            <LogoImg src="/Logo.svg" alt="logo" />
             <Header.Title>함께 SKHUMEET 하려면?</Header.Title>
           </Header.Container>
           <Button.Container>

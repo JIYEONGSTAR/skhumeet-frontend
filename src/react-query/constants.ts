@@ -1,3 +1,8 @@
+import { Category } from "@/types";
+
+// type QueryKey = {
+//   [key in Category | string]: string;
+// };
 export const queryKeys = {
   hansotbab: "hansotbab",
   eoullim: "eoullim",

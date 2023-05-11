@@ -13,6 +13,7 @@ import Head from "next/head";
 import { storageConstants } from "@/types";
 import { useRouter } from "next/router";
 import { queryClient } from "@/react-query/queryClient";
+import { ToTop } from "@/components/utils/ToTop";
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -39,13 +40,13 @@ export default function App({ Component, pageProps }: AppProps) {
         />
         <script src="https://developers.kakao.com/sdk/js/kakao.js" async />
       </Head>
-
       <QueryClientProvider client={queryClient}>
         <ThemeProvider>
           <GlobalStyle />
           <Layout>
             <Hydrate state={pageProps.dehydratedState}>
               <Component {...pageProps} />
+              <ToTop />
             </Hydrate>
           </Layout>
           <ReactQueryDevtools initialIsOpen={false} />

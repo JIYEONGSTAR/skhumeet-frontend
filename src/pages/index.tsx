@@ -2,15 +2,15 @@ import HomeList from "@/components/List/HomeList";
 import Btn from "@/components/utils/Btn";
 import Footer from "@/components/utils/Footer";
 import Seo from "@/components/utils/Seo";
-import { useMainCategory } from "@/hooks/main";
+import { getMainCategory, useMainCategory } from "@/hooks/main";
+import { queryKeys } from "@/react-query/constants";
+import { Category } from "@/types";
+import { QueryClient, dehydrate, useQuery } from "@tanstack/react-query";
 import router from "next/router";
 import styled from "styled-components";
 
 export default function Home() {
   const hansotbab = useMainCategory("hansotbab").data;
-
-  // const content: MAIN[] = hansotbab.content as MAIN[];
-
   const eoullim = useMainCategory("eoullim").data;
   const study = useMainCategory("study").data;
   const club = useMainCategory("club").data;
@@ -22,7 +22,7 @@ export default function Home() {
     <HomeContainer>
       <Seo />
       {/* <MainBanner /> */}
-      <BannerImg src="/Banner.svg" alt="배너" />
+      <BannerImg src="/Banner.svg" alt="banner" />
       <div
         style={{
           display: "flex",
@@ -116,3 +116,33 @@ const RegisterButton = styled(Btn)`
   width: 10rem;
   height: 2rem;
 `;
+
+export async function getServerSideProps() {
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery([queryKeys.hansotbab, 1], () =>
+    getMainCategory(queryKeys.hansotbab as Category, 1)
+  );
+  await queryClient.prefetchQuery([queryKeys.eoullim, 1], () =>
+    getMainCategory(queryKeys.eoullim as Category, 1)
+  );
+  await queryClient.prefetchQuery([queryKeys.study, 1], () =>
+    getMainCategory(queryKeys.study as Category, 1)
+  );
+  await queryClient.prefetchQuery([queryKeys.club, 1], () =>
+    getMainCategory(queryKeys.club as Category, 1)
+  );
+  await queryClient.prefetchQuery([queryKeys.contest, 1], () =>
+    getMainCategory(queryKeys.contest as Category, 1)
+  );
+  await queryClient.prefetchQuery([queryKeys.department_event, 1], () =>
+    getMainCategory(queryKeys.department_event as Category, 1)
+  );
+  await queryClient.prefetchQuery([queryKeys.etc, 1], () =>
+    getMainCategory(queryKeys.etc as Category, 1)
+  );
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+  };
+}

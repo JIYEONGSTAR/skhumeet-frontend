@@ -1,13 +1,11 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { del, get, instance, post } from "@/libs/api";
-import { Category, MAIN, MAINREQUEST } from "@/types";
+import { Category, MAINREQUEST } from "@/types";
 import { queryKeys } from "@/react-query/constants";
 import { useEffect, useState } from "react";
 import customAlert from "@/components/modal/CustomModalAlert";
-import { useRouter } from "next/router";
-import axios from "axios";
 
-const getMainCategory = async (category: Category, page: number) => {
+export const getMainCategory = async (category: Category, page: number) => {
   const res = await get(`/api/post/category/${category}?page=${page}`).then(
     (r: any) => {
       return r.data;

@@ -22,7 +22,7 @@ const CustomAlert = ({ message, onConfirm }: CustomAlertProps) => {
       {/* 아무곳이나 눌러도 알림 창 사라지게 */}
       <AlertModal.Container showModal={showModal} onClick={handleConfirm}>
         <AlertModal.Content>
-          <LogoImg src="/Logo.svg" alt="" height="50%" />
+          <LogoImg src="/Logo.svg" alt="logo" height="50%" />
           <AlertModal.Message>{message}</AlertModal.Message>
         </AlertModal.Content>
       </AlertModal.Container>

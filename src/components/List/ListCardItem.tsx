@@ -20,7 +20,7 @@ const ListCardItem = ({ item }: { item: MAIN }) => {
       {item.images[0] ? (
         <Img src={item.images[0]} alt="" />
       ) : (
-        <Img src="/Logo.svg" alt="로고" />
+        <Img src="/Logo.svg" alt="logo" />
       )}
 
       <StateWrapper>
@@ -61,7 +61,6 @@ const Img = styled.img`
   margin: 20px 0;
   object-fit: contain;
   border-radius: 5px;
-
 `;
 
 const TitleWrapper = styled.div`

@@ -98,7 +98,6 @@ const RegisterForm = ({
     if (context.length === 0) {
       customAlert("내용을 입력해 주세요");
     }
-    //todo 연락방법 ""이어도 됨
     if (contact.length === 0) {
       customAlert("연락 방법을 입력해 주세요");
     }

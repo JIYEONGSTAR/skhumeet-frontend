@@ -3,7 +3,7 @@ import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import React from "react";
 import styled from "styled-components";
 import Seo from "@/components/utils/Seo";
-import { useQuery } from "@tanstack/react-query";
+import { QueryClient, dehydrate, useQuery } from "@tanstack/react-query";
 import { getPostById } from "@/hooks/main";
 import PostDetail from "@/components/PostDetail";
 import { queryKeys } from "@/react-query/constants";
@@ -31,12 +31,17 @@ export const getServerSideProps: GetServerSideProps<{ id: number }> = async (
   context: GetServerSidePropsContext
 ) => {
   const { query } = context;
-  const category = query.category as Category;
-  const id = query.id as unknown as number;
+  const queryClient = new QueryClient();
 
+  // const category = query.category as Category;
+  const id = query.id as unknown as number;
+  await queryClient.prefetchQuery([queryKeys.detail, +id], () =>
+    getPostById(id)
+  );
   return {
     props: {
       id,
+      dehydratedState: dehydrate(queryClient),
     },
   };
 };
