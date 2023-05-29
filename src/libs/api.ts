@@ -7,6 +7,8 @@ import axios, {
   AxiosRequestHeaders,
   AxiosResponse,
 } from "axios";
+import { getCookie } from "./cookie";
+import { setAccessToken, setRefreshToken } from "@/hooks/user-storage";
 
 export const instance = axios.create();
 
@@ -54,13 +56,13 @@ const responseInterceptorRejected = async (error: AxiosError | any) => {
   if (status === 403) {
     console.log("403에러");
     try {
-      const accessToken =
-        typeof window !== "undefined"
-          ? localStorage.getItem(storageConstants.accessToken)
-          : "";
+      // const accessToken =
+      //   typeof window !== "undefined"
+      //     ? localStorage.getItem(storageConstants.accessToken)
+      //     : "";
       const refreshToken =
         typeof window !== "undefined"
-          ? localStorage.getItem(storageConstants.refreshToken)
+          ? getCookie(storageConstants.refreshToken)
           : "";
       const data = await axios
         .post(
@@ -77,19 +79,19 @@ const responseInterceptorRejected = async (error: AxiosError | any) => {
           return res.data;
         })
         .catch((err) => {
-          // customAlert("토큰이 만료되었습니다.");
+          customAlert("토큰이 만료되었습니다.");
           useHandleLogout();
         });
-      const newAccessToken = data.tokens.accessToken;
-      const newRefreshToken = data.tokens.refreshToken;
+      const newAccessToken = data.tokens.accessToken as string;
+      const newRefreshToken = data.tokens.refreshToken as string;
 
       originalRequest.headers = {
         "Content-Type": "application/json",
         Authorization: "Bearer " + newAccessToken,
       };
 
-      localStorage.setItem(storageConstants.accessToken, newAccessToken);
-      localStorage.setItem(storageConstants.refreshToken, newRefreshToken);
+      setAccessToken(newAccessToken);
+      setRefreshToken(newRefreshToken);
 
       return await axios(originalRequest);
     } catch (err) {

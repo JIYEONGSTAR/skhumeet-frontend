@@ -40,6 +40,13 @@ const Button = styled.div`
   right: 3.5vw;
   opacity: 0.7;
   cursor: pointer;
+  border-radius: 60%;
+  width: 3.5rem;
+  height: 3.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   /* border: 1px solid  */
   background-color: ${({ theme }) => theme.color.main};
 `;

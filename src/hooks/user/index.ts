@@ -5,6 +5,8 @@ import {
   setStoredUser,
 } from "../user-storage";
 import customAlert from "@/components/modal/CustomModalAlert";
+import { removeCookie } from "@/libs/cookie";
+import { storageConstants } from "@/types";
 interface UseAuth {
   findMemeberById: (id: string) => Promise<any>;
   signup: (
@@ -73,6 +75,6 @@ export const useAuth = (): UseAuth => {
 
 export const useHandleLogout = async () => {
   localStorage.clear();
-
+  removeCookie(storageConstants.refreshToken);
   window.location.href = "/auth"; // 로그인 페이지로 이동
 };
